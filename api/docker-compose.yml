@@ -1,0 +1,32 @@
+version: "3"
+services:
+  postgres:
+    container_name: presentiel-db
+    image: postgres:latest
+    restart: always
+    # environment:
+    #   POSTGRES_USER: inden
+    #   POSTGRES_PASSWORD: inden
+    #   POSTGRES_DB: presentiel_db
+    env_file:
+    - docker.env
+    ports:
+      - "5445:5432"
+    volumes:
+      - ./presentiel-db.sql:/docker-entrypoint-initdb.d/presentiel-db
+
+  # api:
+  #   build:
+  #      context: ./
+  #      dockerfile: Dockerfile
+  #   ports:
+  #      - 3000:3000
+  #   depends_on: 
+  #      - postgres
+  #   links:
+  #      - postgres
+  #   environment:
+  #     DATABASE_URL: postgres://srp:srp@postgres:5432/sr_project_db
+  #   volumes:
+  #     - .:/api/
+  #     - "/api/node_modules"
